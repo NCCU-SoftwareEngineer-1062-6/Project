@@ -2,7 +2,7 @@
 ===
 
 ## 設定步驟
-1. 如果你是windows系統，開啟vscode，按下 ==ctrl== + ==\`==，接著運行new-install.bat，會自動設定好環境，即可以開始開發。
+1. 如果你是windows系統，開啟vscode，按下 ctrl + \`，接著運行new-install.bat，會自動設定好環境，即可以開始開發。
 2. I have configed all recommend VScode extension，just install all recommend extension
 
 ## 環境說明
