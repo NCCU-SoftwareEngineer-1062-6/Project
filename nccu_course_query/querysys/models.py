@@ -9,8 +9,9 @@ class Course(models.Model):
     """
     the main model of course
     """
-    token = models.IntegerField(max_length=9, primary_key=True)  # 課程代號
-    credit = models.SmallIntegerField(max_length=1)  # 學分數
+    token = models.DecimalField(
+        max_digits=8, decimal_places=0, primary_key=True)  # 課程代號
+    credit = models.SmallIntegerField()  # 學分數
     name_zh = models.CharField(max_length=50)  # 課名 中文
     name_eng = models.CharField(max_length=100)  # 課名 英文
     location = models.CharField(max_length=100)  # 上課地點
@@ -53,7 +54,7 @@ class Teacher(models.Model):
     """
     id = models.AutoField(primary_key=True)
     name_zh = models.CharField(max_length=50)
-    name_eng = models.CharField(max_length=100)
+    name_eng = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return self.name_zh
@@ -65,7 +66,7 @@ class Department(models.Model):
     """
     id = models.AutoField(primary_key=True)
     name_zh = models.CharField(max_length=50)
-    name_eng = models.CharField(max_length=100)
+    name_eng = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return self.name_zh
@@ -76,5 +77,7 @@ class ClassTime(models.Model):
     it have 16 period per day,and 7 days per week.
     """
     id = models.AutoField(primary_key=True)
+    section = models.SmallIntegerField()  # 節數 max = 16 , min=1
+    day = models.SmallIntegerField()  # 星期幾  用數字表示
     start_time = models.TimeField()
     end_time = models.TimeField()

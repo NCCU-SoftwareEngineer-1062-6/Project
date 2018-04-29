@@ -19,5 +19,6 @@ from querysys import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('result/', views.result, name='result')
+    path('result/', views.result, name='result'),
+    path('setup/', views.setClassTime, name='setup')
 ]
