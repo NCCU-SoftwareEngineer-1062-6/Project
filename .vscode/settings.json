@@ -1,0 +1,22 @@
+{
+    "python.pythonPath": "${workspaceFolder}\\.env\\Scripts\\python.exe",
+    "python.linting.pep8Enabled": true,
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django"
+    ],
+    "python.linting.pylintEnabled": true,
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.pyc": true,
+    }
+}
