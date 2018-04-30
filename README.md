@@ -39,6 +39,10 @@ https://www.jianshu.com/p/46df032e9ade
 - https://github.com/haiiiiiyun/awesome-django-cn
 - https://developer.mozilla.org/zh-CN/docs/Learn/Server-side/Django
 
+## 討論筆記
+- [軟體工程 期中期未專題 筆記](https://hackmd.io/Ef-ewUAgT8KgyNV5gF4scQ)
+- [軟體工程 期中期未專題 筆記二](https://hackmd.io/8JzlpH56RWC8hXhc_6DH9A)
+
 ## 開發筆記
 
 ### Model diagram
