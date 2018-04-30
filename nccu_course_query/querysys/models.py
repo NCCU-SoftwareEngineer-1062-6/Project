@@ -54,7 +54,7 @@ class Teacher(models.Model):
     """
     id = models.AutoField(primary_key=True)
     name_zh = models.CharField(max_length=50)
-    name_eng = models.CharField(max_length=100, blank=True)
+    name_eng = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return self.name_zh
@@ -66,7 +66,21 @@ class Department(models.Model):
     """
     id = models.AutoField(primary_key=True)
     name_zh = models.CharField(max_length=50)
-    name_eng = models.CharField(max_length=100, blank=True)
+    name_eng = models.CharField(max_length=100, null=True)
+    college_program = models.ForeignKey(
+        'CollegeProgram', on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.name_zh
+
+
+class CollegeProgram(models.Model):
+    """
+    College or Program own department
+    """
+    id = models.AutoField(primary_key=True)
+    name_zh = models.CharField(max_length=50)
+    name_eng = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return self.name_zh
@@ -77,7 +91,11 @@ class ClassTime(models.Model):
     it have 16 period per day,and 7 days per week.
     """
     id = models.AutoField(primary_key=True)
-    section = models.SmallIntegerField()  # 節數 max = 16 , min=1
-    day = models.SmallIntegerField()  # 星期幾  用數字表示
+    section = models.IntegerField(blank=True)  # 節數 max = 16 , min=1
+    day = models.IntegerField(blank=True)  # 星期幾  用數字表示
     start_time = models.TimeField()
     end_time = models.TimeField()
+
+    def __str__(self):
+        # name of ClassTime , like "星期7 5節"
+        return "星期" + str(self.day) + " " + str(self.section) + "節"
