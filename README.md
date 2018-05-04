@@ -1,6 +1,6 @@
 軟工專案設定筆記
 ===
-![travis ci](https://api.travis-ci.com/NCCU-SoftwareEngineer-1062-6/Project.svg)
+[![Build Status](https://travis-ci.com/NCCU-SoftwareEngineer-1062-6/Project.svg?branch=master)](https://travis-ci.com/NCCU-SoftwareEngineer-1062-6/Project)
 ## 新設定步驟
 1. 使用windows cmd 切換至工作資料夾上層目錄
 2. `git clone https://github.com/NCCU-SoftwareEngineer-1062-6/Project.git`
