@@ -28,6 +28,7 @@
 - pylint
 - pylint-django
 - autopep8
+- virtualenv 虛擬環境用，如使用全域套件可不用安裝
 
 ## 參考連結
 https://www.jianshu.com/p/46df032e9ade
@@ -41,11 +42,21 @@ https://www.jianshu.com/p/46df032e9ade
 
 ## 開發筆記
 
+[**進度監看板**](https://github.com/NCCU-SoftwareEngineer-1062-6/Project/projects/1)
+### 討論筆記
+- [軟體工程 期中期未專題 筆記](https://hackmd.io/Ef-ewUAgT8KgyNV5gF4scQ)
+- [軟體工程 期中期未專題 筆記二](https://hackmd.io/8JzlpH56RWC8hXhc_6DH9A)
+- [軟體工程 小組專案 筆記三](https://hackmd.io/qd0zIVPkRACr2eTkKgwzPg?view)
+
+**記得每個功能完成後，要找人進行code review順便寫TestCase**
+
+如果TestCase很難寫的話就先放棄XD
+
 ### Model diagram
 
 ![](https://i.imgur.com/TwA6jvj.png)
 
 #### 資料庫匯入順序
 
-1. Teacher,Time,Department
+1. Teacher,Time,Department,CollegeProgram
 2. Course
