@@ -1,0 +1,23 @@
+language: python
+
+python:
+  - "3.6"
+
+install:
+  - pip install -r requirements.txt
+  - pip install pep8
+  - pip install flake8
+
+before_script:
+  # E123/E133, E226 and E241/E242 are default ignores
+  # E402: module level import not at top of file      
+  # E501: max length > 79 
+  # W503: ignore operators after line break until pep8 is upgraded
+  - "pep8 --exclude=migrations --ignore=E123,E133,E226,E241,E242,E402,E501,W503 ./"
+  - "flake8 --exclude=migrations --ignore=E123,E133,E226,E241,E242,E402,E501,W503 ./"
+
+script:
+  - cd nccu_course_query/ && python manage.py test  
+
+
+# refer source : https://medium.com/@linpoan/travis-ci-with-django-92d23be452fd
