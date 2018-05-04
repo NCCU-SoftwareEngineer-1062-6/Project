@@ -12,7 +12,7 @@ before_script:
   # E402: module level import not at top of file      
   # E501: max length > 79 
   # W503: ignore operators after line break until pep8 is upgraded
-  - "flake8 --exclude=migrations --ignore=E123,E133,E226,E241,E242,E402,E501,W503 ./"
+  - "flake8 --exclude=migrations --ignore=E123,E133,E226,E241,E242,E402,E501,W503,F401 ./"
 
 script:
   - cd nccu_course_query/ && python manage.py test  
