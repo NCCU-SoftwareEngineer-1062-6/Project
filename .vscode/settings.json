@@ -1,6 +1,8 @@
 {
     "python.pythonPath": "${workspaceFolder}\\.env\\Scripts\\python.exe",
     "python.linting.pep8Enabled": true,
+    "python.linting.pep8Path": "${workspaceFolder}\\.env\\Scripts\\pep8.exe",
+    "python.linting.pylintPath": "${workspaceFolder}\\.env\\Scripts\\pylint.exe",
     "python.linting.pylintArgs": [
         "--load-plugins",
         "pylint_django"

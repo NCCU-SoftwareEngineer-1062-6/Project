@@ -54,7 +54,6 @@ class Teacher(models.Model):
     """
     id = models.AutoField(primary_key=True)
     name_zh = models.CharField(max_length=50)
-    name_eng = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return self.name_zh
@@ -66,7 +65,6 @@ class Department(models.Model):
     """
     id = models.AutoField(primary_key=True)
     name_zh = models.CharField(max_length=50)
-    name_eng = models.CharField(max_length=100, null=True)
     college_program = models.ForeignKey(
         'CollegeProgram', on_delete=models.CASCADE, null=True)
 
@@ -80,7 +78,6 @@ class CollegeProgram(models.Model):
     """
     id = models.AutoField(primary_key=True)
     name_zh = models.CharField(max_length=50)
-    name_eng = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return self.name_zh
