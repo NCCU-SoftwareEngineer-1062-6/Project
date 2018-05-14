@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from querysys.models import Course, Teacher, Department, ClassTime
 import datetime
-
+from django.shortcuts import render_to_response
 
 def index(request):
     """
