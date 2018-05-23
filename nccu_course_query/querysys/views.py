@@ -20,9 +20,9 @@ def result(request):
     """
     return the result
     """
-    courses_all = Course.objects.all()
+    courses = Course.objects.all()
 
-    paginator = Paginator(courses_all, 10)
+    paginator = Paginator(courses, 10)
     page = request.GET.get('page')
 
     try:
