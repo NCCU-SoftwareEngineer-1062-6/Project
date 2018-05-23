@@ -4,6 +4,7 @@ course query system views
 from django.shortcuts import render
 from django.http import HttpResponse
 from querysys.models import Course, Teacher, Department, ClassTime
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
 
 
@@ -19,7 +20,18 @@ def result(request):
     """
     return the result
     """
-    courses = Course.objects.all()
+    courses_all = Course.objects.all()
+
+    paginator = Paginator(courses_all, 10)
+    page = request.GET.get('page')
+
+    try:
+        courses = paginator.page(page)
+    except PageNotAnInteger:
+        courses = paginator.page(1)
+    except EmptyPage:
+        courses = paginator.page(paginator.num_pages)
+
     return render(request, 'result.html', {'courses': courses})
 
 
