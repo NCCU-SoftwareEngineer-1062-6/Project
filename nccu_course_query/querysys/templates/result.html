@@ -108,7 +108,7 @@
         </div>
     </div>
     <div align="center">
-        {% if courses_all.has_previous %}
+        {% if courses.has_previous %}
         <!-- 如果還有上一頁，顯示上一頁按鈕 -->
         <a href="?page={{ courses.previous_page_number }}">上一頁</a>
         {% endif %}
@@ -116,7 +116,7 @@
             <!-- 顯示目前頁面 -->
             第 {{ courses.number }} 頁 / 共 {{ courses.paginator.num_pages }} 頁
         </span>
-        {% if courses_all.has_next %}
+        {% if courses.has_next %}
         <!-- 如果還有下一頁，顯示下一頁按鈕 -->
         <a href="?page={{ courses.next_page_number }}">下一頁</a>
         {% endif %}

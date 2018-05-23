@@ -22,7 +22,7 @@ def result(request):
     """
     courses = Course.objects.all()
 
-    paginator = Paginator(courses, 10)
+    paginator = Paginator(courses, 2)
     page = request.GET.get('page')
 
     try:
