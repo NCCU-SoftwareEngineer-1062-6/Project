@@ -24,5 +24,9 @@ urlpatterns = [
     path('setup/', views.set_class_time, name='setup'),
     re_path(r'^search-form$', search.search_form),
     re_path(r'^search$', search.search),
+    re_path(r'^search_teacher$', search.search_teacher),
+    re_path(r'^search_courses$', search.search_courses),
+    re_path(r'^search_token$', search.search_token),
+    re_path(r'^search_location$', search.search_location),
     re_path(r'^search-post$', search2.search_post),
 ]
