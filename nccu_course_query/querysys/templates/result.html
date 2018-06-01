@@ -45,7 +45,6 @@
             </ul>
         </div>
     </nav>
-
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -61,8 +60,8 @@
                             <th>備註</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id="article-feed">
+                        <tr id="article">
                             <td scope="row">000211012</td>
                             <td>政治學</td>
                             <td>蔡中民</td>
@@ -71,7 +70,7 @@
                             <td>大勇210104</td>
                             <td>＠備註Note:政治系優先。</td>
                         </tr>
-                        <tr>
+                        <tr id="article">
                             <td scope="row">781024001</td>
                             <td>數位出版</td>
                             <td>郭正佩</td>
@@ -81,17 +80,17 @@
                             <td>Null</td>
                         </tr>
                         {% for course in courses %}
-                        <tr>
+                        <tr id="article">
                             <td scope="row">{{ course.token }}</td>
                             <td>{{ course.name_zh }}</td>
                             <td>{{ course.teacher.all }}</td>
                             <td>{{ course.course_time.all }}</td>
                             <td>{{ course.department }}</td>
-                            <td>{{ course.loaction }}</td>
+                            <td>{{ course.location }}</td>
                             <td>{{ course.note }}</td>
                         </tr>
                         {% empty %}
-                        <tr>
+                        <tr id="article">
                             <td scope="row">nothing</td>
                             <td>nothing</td>
                             <td>nothing</td>
@@ -107,7 +106,8 @@
             </div>
         </div>
     </div>
-    <div align="center">
+
+    <div align="center" id="pagination">
         {% if courses.has_previous %}
         <!-- 如果還有上一頁，顯示上一頁按鈕 -->
         <a href="?page={{ courses.previous_page_number }}">上一頁</a>
@@ -118,7 +118,7 @@
         </span>
         {% if courses.has_next %}
         <!-- 如果還有下一頁，顯示下一頁按鈕 -->
-        <a href="?page={{ courses.next_page_number }}">下一頁</a>
+        <a href="?page={{ courses.next_page_number }}" id="pagination__next">下一頁</a>
         {% endif %}
     </div>
 
@@ -130,6 +130,15 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
+
+    <script>
+        $('#article-feed').infiniteScroll({
+            path: '#pagination__next',
+            append: '#article',
+            hideNav: '#pagination',
+        });
+    </script>
 </body>
 
 </html>
