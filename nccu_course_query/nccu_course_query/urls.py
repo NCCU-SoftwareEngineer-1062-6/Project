@@ -28,5 +28,6 @@ urlpatterns = [
     re_path(r'^search_courses$', search.search_courses),
     re_path(r'^search_token$', search.search_token),
     re_path(r'^search_location$', search.search_location),
+    re_path(r'^search_department$', search.search_department),
     re_path(r'^search-post$', search2.search_post),
 ]
