@@ -39,8 +39,11 @@ def search(request):
         courses = courses|department_output
 
         #chain token
-        #token_output = Course.objects.filter(token = request.GET['q'] )
-        #courses = chain(courses, token_output)
+        try:
+            token_output = Course.objects.filter(token = request.GET['q'] )
+            courses = courses|token_output
+        except:
+            courses = courses
 
     return render(request, 'result.html', {'courses': courses})
 
@@ -76,8 +79,11 @@ def search_token(request):
     request.encoding='utf-8'
     #courses = Course.objects.filter(token = 'no class' )
     if 'q' in request.GET:
-        token_output = Course.objects.filter(token = request.GET['q'] )
-        courses = token_output
+        try:
+            token_output = Course.objects.filter(token = request.GET['q'] )
+            courses = token_output
+        except:
+            courses = Course.objects.filter(name_zh = 'no class' )
 
     return render(request, 'result.html', {'courses': courses})
 
