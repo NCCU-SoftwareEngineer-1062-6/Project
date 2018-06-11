@@ -7,6 +7,16 @@ from querysys.models import Course, Teacher, Department, ClassTime
 import datetime
 from django.shortcuts import render_to_response
 
+#test
+from querysys.models import user
+from .filters import UserFilter
+
+def search(request):
+    user_list = user.objects.all()
+    user_filter = UserFilter(request.GET, queryset=user_list)
+    return render(request, 'user_list.html', {'filter': user_filter})
+#test
+
 def index(request):
     """
     return the main page

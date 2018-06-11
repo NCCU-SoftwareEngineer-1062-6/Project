@@ -5,6 +5,11 @@ from django.db import models
 from django.utils import timezone
 
 
+class user(models.Model):
+    username = models.CharField(max_length=50)  # 課名 中文
+    first_name = models.CharField(max_length=100)  # 課名 英文
+    last_name = models.CharField(max_length=100)  # 上課地點
+
 class Course(models.Model):
     """
     the main model of course
