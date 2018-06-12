@@ -15,7 +15,7 @@ def search_form(request):
     return render_to_response('search_form.html')
 
 
-def search(request):
+def search_all(request):
     request.encoding='utf-8'
     courses = Course.objects.filter(name_zh = 'no class' )
     courses_teacher_output = Course.objects.filter(name_zh = 'no class' )

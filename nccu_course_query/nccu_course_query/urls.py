@@ -20,20 +20,21 @@ from querysys import search, search2
 
 #test
 from django_filters.views import FilterView
-from querysys.filters import UserFilter
+from querysys.filters import UserFilter, CourseFilter
 
 
 urlpatterns = [
 
     #re_path(r'^search/$', views.search, name='search'),
     re_path(r'^search/$', FilterView.as_view(filterset_class=UserFilter,template_name='user_list.html'), name='search'),
+    re_path(r'^search-course_list/$', FilterView.as_view(filterset_class=CourseFilter,template_name='course_list.html'), name='search2'),
 
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('result/', views.result, name='result'),
     path('setup/', views.set_class_time, name='setup'),
     re_path(r'^search-form$', search.search_form),
-    #re_path(r'^search$', search.search),
+    re_path(r'^search_all$', search.search_all),
     re_path(r'^search_teacher$', search.search_teacher),
     re_path(r'^search_courses$', search.search_courses),
     re_path(r'^search_token$', search.search_token),

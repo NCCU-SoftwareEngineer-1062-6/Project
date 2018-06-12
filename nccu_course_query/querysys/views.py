@@ -9,12 +9,19 @@ from django.shortcuts import render_to_response
 
 #test
 from querysys.models import user
-from .filters import UserFilter
+from .filters import UserFilter, CourseFilter
 
 def search(request):
     user_list = user.objects.all()
     user_filter = UserFilter(request.GET, queryset=user_list)
     return render(request, 'user_list.html', {'filter': user_filter})
+
+def search2(request):
+
+    course_list = Course.objects.all()
+    course_filter = CourseFilter(request.GET, queryset=course_list)
+    return render(request, 'course_list.html', {'filter': course_filter})
+#test
 #test
 
 def index(request):
