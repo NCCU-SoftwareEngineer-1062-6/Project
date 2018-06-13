@@ -27,7 +27,8 @@ urlpatterns = [
 
     #re_path(r'^search/$', views.search, name='search'),
     re_path(r'^search/$', FilterView.as_view(filterset_class=UserFilter,template_name='user_list.html'), name='search'),
-    re_path(r'^search-course_list/$', FilterView.as_view(filterset_class=CourseFilter,template_name='course_list.html'), name='search2'),
+    #re_path(r'^search-course_list/$', FilterView.as_view(filterset_class=CourseFilter,template_name='course_list.html')),
+    re_path(r'^search-course_list/$', views.search2),
 
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),

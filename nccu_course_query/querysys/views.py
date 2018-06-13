@@ -18,10 +18,38 @@ def search(request):
 
 def search2(request):
 
-    course_list = Course.objects.all()
+    request.encoding='utf-8'
+    courses = Course.objects.filter(name_zh = 'no class' )
+    courses_teacher_output = Course.objects.filter(name_zh = 'no class' )
+    if 'q' in request.GET:
+        #chain class name , teacher
+        teacher1 = Teacher.objects.filter(name_zh__contains=request.GET['q'])
+        courses_name_output = Course.objects.filter(name_zh__contains = request.GET['q'] )
+        if teacher1.count() > 0 :
+            #courses_teacher_output = Course.objects.filter(teacher__contains= teacher1[0].id )
+            courses_teacher_output = Course.objects.filter(teacher__name_zh__contains = request.GET['q'] )
+            courses = courses_teacher_output|courses_name_output
+        else:
+            courses = courses_name_output
+
+        #chain location
+        location_output = Course.objects.filter(location__contains = request.GET['q'] )
+        courses = courses|location_output
+
+        #chain department
+        department_output = Course.objects.filter(department__name_zh__contains = request.GET['q'] )
+        courses = courses|department_output
+
+        #chain token
+        try:
+            token_output = Course.objects.filter(token = request.GET['q'] )
+            courses = courses|token_output
+        except:
+            courses = courses
+
+    course_list = courses
     course_filter = CourseFilter(request.GET, queryset=course_list)
     return render(request, 'course_list.html', {'filter': course_filter})
-#test
 #test
 
 def index(request):
