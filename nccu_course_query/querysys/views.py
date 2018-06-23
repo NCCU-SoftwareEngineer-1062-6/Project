@@ -4,7 +4,55 @@ course query system views
 import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
-from querysys.models import Course, Teacher, Department, ClassTime
+from querysys.models import Course, Teacher, Department, ClassTime, user
+from .filters import UserFilter, CourseFilter
+
+
+def search(request):
+    user_list = user.objects.all()
+    user_filter = UserFilter(request.GET, queryset=user_list)
+    return render(request, 'user_list.html', {'filter': user_filter})
+
+
+def search2(request):
+
+    request.encoding = 'utf-8'
+    courses = Course.objects.filter(name_zh='no class')
+    courses_teacher_output = Course.objects.filter(name_zh='no class')
+    if 'q' in request.GET:
+        # chain class name , teacher
+        teacher1 = Teacher.objects.filter(name_zh__contains=request.GET['q'])
+        courses_name_output = Course.objects.filter(
+            name_zh__contains=request.GET['q'])
+        if teacher1.count() > 0:
+            #courses_teacher_output = Course.objects.filter(teacher__contains= teacher1[0].id )
+            courses_teacher_output = Course.objects.filter(
+                teacher__name_zh__contains=request.GET['q'])
+            courses = courses_teacher_output | courses_name_output
+        else:
+            courses = courses_name_output
+
+        # chain location
+        location_output = Course.objects.filter(
+            location__contains=request.GET['q'])
+        courses = courses | location_output
+
+        # chain department
+        department_output = Course.objects.filter(
+            department__name_zh__contains=request.GET['q'])
+        courses = courses | department_output
+
+        # chain token
+        try:
+            token_output = Course.objects.filter(token=request.GET['q'])
+            courses = courses | token_output
+        except:
+            courses = courses
+
+    course_list = courses
+    course_filter = CourseFilter(request.GET, queryset=course_list)
+    return render(request, 'course_list.html', {'filter': course_filter})
+# test
 
 
 def index(request):

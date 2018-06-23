@@ -65,6 +65,6 @@ https://www.jianshu.com/p/46df032e9ade
 ### infinite scroll
 
 1. ~~infinite scroll無法實作成功~~ <
-    - 主因為infinite scroll 需有scrollbar的驅動 **(瀏覽器右邊常常的那個)** 
+    - 主因為infinite scroll 需有scrollbar的驅動 **(瀏覽器右邊長長的那個)** 
     - 如果資料無法超出一個頁面，則不會成功驅動，需將分頁設置成**8個以上分一頁**
 2. 以[Paginator](https://www.zmrenwu.com/post/23/)去做實作，並以其為基礎改造成[infinite Scroll](https://infinite-scroll.com/demo/full-page/)
