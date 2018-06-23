@@ -20,6 +20,17 @@ def result(request):
     return the result
     """
     courses = Course.objects.all()
+
+    paginator = Paginator(courses, 10)
+    page = request.GET.get('page')
+
+    try:
+        courses = paginator.page(page)
+    except PageNotAnInteger:
+        courses = paginator.page(1)
+    except EmptyPage:
+        courses = paginator.page(paginator.num_pages)
+
     return render(request, 'result.html', {'courses': courses})
 
 
