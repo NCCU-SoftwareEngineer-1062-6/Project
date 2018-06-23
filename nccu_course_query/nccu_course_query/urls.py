@@ -14,12 +14,33 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from querysys import views
+from querysys import search, search2
+
+#test
+from django_filters.views import FilterView
+from querysys.filters import UserFilter, CourseFilter
+
 
 urlpatterns = [
+
+    #re_path(r'^search/$', views.search, name='search'),
+    re_path(r'^search/$', FilterView.as_view(filterset_class=UserFilter,template_name='user_list.html'), name='search'),
+    #re_path(r'^search-course_list/$', FilterView.as_view(filterset_class=CourseFilter,template_name='course_list.html')),
+    re_path(r'^search-course_list/$', views.search2),
+
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('result/', views.result, name='result'),
-    path('setup/', views.set_class_time, name='setup')
+    path('setup/', views.set_class_time, name='setup'),
+    re_path(r'^search-form$', search.search_form),
+    re_path(r'^search_all$', search.search_all),
+    re_path(r'^search_teacher$', search.search_teacher),
+    re_path(r'^search_courses$', search.search_courses),
+    re_path(r'^search_token$', search.search_token),
+    re_path(r'^search_location$', search.search_location),
+    re_path(r'^search_department$', search.search_department),
+    re_path(r'^search-post$', search2.search_post),
+
 ]
