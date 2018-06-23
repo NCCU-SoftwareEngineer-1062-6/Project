@@ -14,7 +14,7 @@ class Course(models.Model):
     credit = models.SmallIntegerField()  # 學分數
     name_zh = models.CharField(max_length=50)  # 課名 中文
     name_eng = models.CharField(max_length=100)  # 課名 英文
-    location = models.CharField(max_length=100)  # 上課地點
+    # location = models.CharField(max_length=100)  # 上課地點
     CATEGORY = (
         ('RE', 'Required 必修'),
         ('ELE', 'Elective 選修'),

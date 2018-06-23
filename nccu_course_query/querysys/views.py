@@ -2,25 +2,42 @@
 course query system views
 """
 import datetime
+from querysys import search
 from django.shortcuts import render
 from django.http import HttpResponse
 from querysys.models import Course, Teacher, Department, ClassTime
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from .form import textForm
 
 
 def index(request):
     """
     return the main page
     """
+    if request.method == 'POST':  # 当提交表单时
 
-    return render(request, 'index.html', locals())
+        form = textForm(request.POST)  # form 包含提交的数据
+
+        if form.is_valid():  # 如果提交的数据合法
+            searchText = form.cleaned_data['searchText']
+            results = search.tokenSearch(searchText)
+            results = search.TeacherSearch(searchText) | results
+            results = search.zhNameSearch(searchText) | results
+            results = search.DepartmentSearch(searchText) | results
+
+            return result(request, courses=results)
+
+    else:  # 当正常访问时
+        form = textForm()
+    return render(request, 'index.html', {'form': form})
 
 
-def result(request):
+def result(request, courses=None):
     """
     return the result
     """
-    courses = Course.objects.all()
+    if courses == None:
+        courses = Course.objects.all()
 
     paginator = Paginator(courses, 10)
     page = request.GET.get('page')
@@ -53,7 +70,7 @@ def set_class_time(request):
     return HttpResponse("Configure ClassTime Successfully.")
 
 
-def import_data_from_csv(request):
+def import_data_from_json(request):
     """
     import course data form csv
     """
