@@ -43,21 +43,21 @@
             </div>
         </div>
 
-        <div class="ui inverted vertical center aligned segment" style="padding-top: 8% ;padding-bottom: 5%">
+        <div class="ui inverted vertical center aligned segment" style="background-color: #8a7d80 ; padding-top: 8% ;padding-bottom: 5%">
             <div class="ui text container">
-                <h1 class="ui inverted header" style="font-size: 4em">
+                <h1 class="ui inverted header" style="font-size: 4em ">
                     NCCU課程查詢系統
                 </h1>
             </div>
         </div>
 
-        <div class="ui vertical center aligned segment" style="background-color: #EEEEEE;padding-top: 50px;padding-bottom: 30%">
-            <div id='text-search' class="ui form huge" style="padding-right: 35%;padding-left: 35%">
+        <div class="ui vertical center aligned segment" style="background-color: #e0d7d3 ; padding-top: 50px;padding-bottom: 30%">
+            <div id='text-search' class="ui form huge" style="padding-right: 15%;padding-left: 15%">
                 <form action="/result/" method="POST">
                     {% csrf_token %}
                     <div class="ui right action left icon input huge fluid">
                         <i class="search icon"></i>
-                        <input class="prompt" type="text" placeholder="政治學" name="searchText">
+                        <input class="prompt" type="text" placeholder="請在此輸入你想搜尋的科目名稱、老師、系所或是科目代號" name="searchText">
                         <button class="ui button" style="font-size: 1em" type="submit">
                             Search
                         </button>
