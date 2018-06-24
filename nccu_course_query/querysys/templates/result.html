@@ -1,94 +1,120 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
     <head>
-        <title>選課查詢結果</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Standard Meta -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-            crossorigin="anonymous">
-
+        <!-- Site Properties -->
+        <title>結果 - NCCU課程查詢系統</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href={% static "semantic/semantic.min.css"%}>
+        <script src={% static "js/jquery-3.3.1.min.js"%}></script>
+        <script src={% static "semantic/semantic.min.js"%}></script>
+        <script src={% static "js/tablesort.js"%}></script>
+        <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('table').tablesort();
+                $('#article-feed').infiniteScroll({
+                    path: '#pagination__next',
+                    append: '#article',
+                    hideNav: '#pagination',
+                });
+            });
+        </script>
     </head>
 
-    <body style="font-family: Microsoft JhengHei;">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">NCCCCCU課程查詢-軟工</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>課程代號</th>
-                                <th>課程名稱</th>
-                                <th>授課教師</th>
-                                <th>上課時段</th>
-                                <th>開課單位</th>
-                                <th>修別</th>
-                                <th>課程簡介</th>
-                            </tr>
-                        </thead>
-                        <tbody id="article-feed">
-                            {% for course in courses %}
-                            <tr id="article">
-                                <td scope="row">{{ course.token }}</td>
-                                <td>{{ course.name_zh }}</td>
-                                <td>{{ course.teacher.all }}</td>
-                                <td>{{ course.course_time.all }}</td>
-                                <td>{{ course.department }}</td>
-                                <td>{{ course.category }}</td>
-                                <td>{{ course.description }}</td>
-                            </tr>
-                            {% empty %}
-                            <tr id="article">
-                                <td scope="row">無結果</td>
-                                <td>無結果</td>
-                                <td>無結果</td>
-                                <td>無結果</td>
-                                <td>無結果</td>
-                                <td>無結果</td>
-                                <td>無結果</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-
+    <body>
+        <div class="ui fixed menu">
+            <div class="ui container">
+                <h3 class="header item">NCCU課程查詢系統</h3>
+                <a href="/" class="header item">
+                    Home
+                </a>
+                <a href="/result/" class="header item">全部課程列表</a>
+                <div class="right menu">
+                    <a href="/admin/" class="header item">Admin</a>
                 </div>
             </div>
         </div>
+        <div class="ui inverted vertical center aligned segment" style="padding-top: 6% ;padding-bottom: 3%">
+            <div class="ui text container">
+                <h1 class="ui inverted header" style="font-size: 4em">
+                    課程查詢結果
+                </h1>
+            </div>
+        </div>
+        <div class="ui vertical center aligned segment">
+            <div class="ui container">
+                <table class="ui sortable selectable celled striped table">
+                    <thead>
+                        <tr>
+                            <th class="">課程代號</th>
+                            <th class="">課程名稱</th>
+                            <th class="sorted ascending two wide">授課教師</th>
+                            <th class="two wide">上課時段</th>
+                            <th class="">開課單位</th>
+                            <th class="">修別</th>
+                            <th class="">學分數</th>
+                            <th class="">課程簡介</th>
+                        </tr>
+                    </thead>
+                    <tbody id="article-feed">
+                        {% for course in courses %}
+                        <tr id="article">
+                            <td>{{ course.token }}</td>
+                            <td>{{ course.name_zh }}</td>
+                            <td>
+                                <div class="ui vertical labels">
+                                    {% for teacher in course.teacher.all%}
+                                    <div class="ui image label" style="margin-top: 5px">
+                                        <img src={% static 'img/elliot.jpg'%}> {{teacher.name_zh}}
+                                    </div><br>
+                                    {% empty %} 
+                                    {% endfor %}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui vertical labels">
+                                    {% for time in course.course_time.all%}
+                                    <div class="ui label" style="margin-top: 5px">
+                                            星期{{time.day}} {{time.section}}節
+                                    </div><br>
+                                    {% empty %} 
+                                    {% endfor %}
+                                </div>
+                            </td>
+                            <td>
+                                {% for n in course.department.all %}
+                                    {{n}}
+                                {% empty %}
+                                    None
+                                {% endfor %}
+                            </td>
+                            <td>{{ course.category }}</td>
+                            <td>{{ course.credit }}</td>
+                            <td>{{ course.description }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr id="article" class="disabled">
+                            <td>None</td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>None</td>
+                            <td>None</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
 
         <div align="center" id="pagination">
             {% if courses.has_previous %}
@@ -104,24 +130,6 @@
             <a href="?page={{ courses.next_page_number }}" id="pagination__next"></a>
             {% endif %}
         </div>
-
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
-
-        <script>
-            $('#article-feed').infiniteScroll({
-                path: '#pagination__next',
-                append: '#article',
-                hideNav: '#pagination',
-            });
-        </script>
     </body>
 
 </html>

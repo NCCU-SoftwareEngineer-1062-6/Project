@@ -12,13 +12,7 @@ class Course(models.Model):
     credit = models.SmallIntegerField()  # 學分數
     name_zh = models.CharField(max_length=50)  # 課名 中文
     name_eng = models.CharField(max_length=100)  # 課名 英文
-    # location = models.CharField(max_length=100)  # 上課地點
-    CATEGORY = (
-        ('RE', 'Required 必修'),
-        ('ELE', 'Elective 選修'),
-        ('PART', 'Partially 群修')
-    )
-    category = models.CharField(choices=CATEGORY, max_length=10)  # 選修 必修 群修
+    category = models.CharField(max_length=1)  # 選修 必修 群修
     description = models.TextField()  # 課程簡介
 
     # many to many field
@@ -68,8 +62,8 @@ class ClassTime(models.Model):
     it have 16 period per day,and 7 days per week.
     """
     id = models.AutoField(primary_key=True)
-    section = models.IntegerField(blank=True)  # 節數 max = 16 , min=1
-    day = models.IntegerField(blank=True)  # 星期幾  用數字表示
+    section = models.CharField(blank=True,max_length=1)  # 節數 max = 16 , min=1
+    day = models.CharField(blank=True,max_length=1)  # 星期幾  用數字表示
     start_time = models.TimeField()
     end_time = models.TimeField()
 

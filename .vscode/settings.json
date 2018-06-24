@@ -8,7 +8,7 @@
         "pylint_django"
     ],
     "python.linting.pylintEnabled": true,
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "editor.rulers": [
         80,
         120

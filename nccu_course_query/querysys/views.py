@@ -56,12 +56,14 @@ def set_class_time(request):
     """
     Configure all ClassTime
     """
+    days = ['一','二','三','四','五','六','日']
+    sections = ['A','B','1','2','3','4','C','D','5','6','7','8','E','F','G','H']
     for day in range(1, 8):
         for sect in range(1, 17):
             if not ClassTime.objects.filter(section=sect, day=day):
                 ClassTime.objects.create(
-                    section=sect,
-                    day=day,
+                    section=sections[sect-1],
+                    day=days[day-1],
                     start_time=datetime.time(hour=5+sect, minute=10),
                     end_time=datetime.time(hour=6+sect)
                 )
@@ -76,70 +78,6 @@ def import_data_from_json(request):
     匯入位於同目錄底下的json檔 進 資料庫
 
     """
-    def transform(text):
-        if text[0] == '必':
-            return 'RE'
-        elif text[0] == '選':
-            return 'ELE'
-        elif text[0] == '群':
-            return 'PART'
-        return None
-
-    def trans_week(text):
-        tmp = None
-        if text[0] == '一':
-            tmp = 1
-        elif text[0] == '二':
-            tmp = 2
-        elif text[0] == '三':
-            tmp = 3
-        elif text[0] == '四':
-            tmp = 4
-        elif text[0] == '五':
-            tmp = 5
-        elif text[0] == '六':
-            tmp = 6
-        elif text[0] == '日':
-            tmp = 7
-        return tmp
-
-    def trans_section(text):
-        tmp = None
-        if text[0] == 'A':
-            tmp = 1
-        elif text[0] == 'B':
-            tmp = 2
-        elif text[0] == '1':
-            tmp = 3
-        elif text[0] == '2':
-            tmp = 4
-        elif text[0] == '3':
-            tmp = 5
-        elif text[0] == '4':
-            tmp = 6
-        elif text[0] == 'C':
-            tmp = 7
-        elif text[0] == 'D':
-            tmp = 8
-        elif text[0] == '5':
-            tmp = 9
-        elif text[0] == '6':
-            tmp = 10
-        elif text[0] == '7':
-            tmp = 11
-        elif text[0] == '8':
-            tmp = 12
-        elif text[0] == 'E':
-            tmp = 13
-        elif text[0] == 'F':
-            tmp = 14
-        elif text[0] == 'G':
-            tmp = 15
-        elif text[0] == 'H':
-            tmp = 16
-
-        return tmp
-
     with open("querysys/1061-course-result.json", encoding='utf-8', mode='r') as file:
         datas = json.load(file)
         for data in datas:
@@ -148,7 +86,7 @@ def import_data_from_json(request):
                 credit=int(float(data['學分數'])),
                 name_zh=data['課程名稱'],
                 name_eng=data['CourseName'],
-                category=transform(data['修別']),
+                category=data['修別'][0],
                 description=data['課程簡介']
             )
 
@@ -175,9 +113,21 @@ def import_data_from_json(request):
             if data['上課時間'] is not None:
                 for time in data['上課時間']:
                     tmp_time = ClassTime.objects.get(
-                        day=trans_week(time['day']),
-                        section=trans_section(time['section'])
+                        day=time['day'],
+                        section=time['section']
                     )
                     c.course_time.add(tmp_time)
 
     return HttpResponse("Import datas Successfully.")
+
+
+def text_json(request):
+    """
+    this will genrate a json for autocomplete feather
+    """
+    result = list()
+    tmp = list()
+    for c in Course.objects.all():
+        tmp.append(c.name_zh)
+    
+    return None
