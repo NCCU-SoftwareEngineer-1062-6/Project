@@ -15,24 +15,25 @@ def tokenSearch(text):
     results = Course.objects.filter(token__icontains=text)
     return results
 
-
 def zhNameSearch(text):
     text = str(text)
     results = Course.objects.filter(name_zh__icontains=text)
     return results
 
+def engNameSearch(text):
+    text = str(text)
+    results = Course.objects.filter(name_eng__icontains=text)
+    return results
 
 def TeacherSearch(text):
     text = str(text)
     results = Course.objects.filter(teacher__name_zh__icontains=text)
     return results
 
-
 def DepartmentSearch(text):
     text = str(text)
     results = Course.objects.filter(department__name_zh__icontains=text)
     return results
-
 
 def CourseTimeSearch():
     return Course.objects.none()

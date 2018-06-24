@@ -32,6 +32,7 @@ def result(request, courses=None):
             results = search.TeacherSearch(searchText) | results
             results = search.zhNameSearch(searchText) | results
             results = search.DepartmentSearch(searchText) | results
+            results = search.engNameSearch(searchText) | results
             results.distinct()
 
             courses = results
@@ -125,33 +126,34 @@ def text_json(request):
     """
     this will genrate a json for autocomplete feather
     """
+    query = str()
+
     if request.method == 'GET':
         query = request.GET.get('q')
 
-    result = list()
+    results = list()
 
     for c in search.tokenSearch(query):
         tmp = {'category':'課程代號','title':c.token}
-        result.append(tmp)
+        results.append(tmp)
     
     for c in search.zhNameSearch(query):
         tmp = {'category':'課程名稱','title':c.name_zh}
-        result.append(tmp)
+        results.append(tmp)
 
-    """
-    for c in Course.objects.all():
+    
+    for c in search.engNameSearch(query):
         tmp = {'category':'Course Name','title':c.name_eng}
-        result.append(tmp)
-    """ 
+        results.append(tmp)
     
-    for t in search.TeacherSearch(query):
+    for t in Teacher.objects.filter(name_zh__icontains=query):
         tmp = {'category':'老師','title':t.name_zh}
-        result.append(tmp)
+        results.append(tmp)
     
-    for d in search.DepartmentSearch(query):
+    for d in Department.objects.filter(name_zh__icontains=query):
         tmp = {'category':'開課單位','title':d.name_zh}
-        result.append(tmp)
+        results.append(tmp)
 
-    tmp = {'results':result}
+    tmp = {'results':results}
 
     return HttpResponse(json.dumps(tmp))
