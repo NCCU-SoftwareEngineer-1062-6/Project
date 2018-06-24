@@ -12,11 +12,8 @@ from querysys.models import Course
 
 def tokenSearch(text):
     text = str(text)
-    if text.isdigit() and len(text) == 8:
-        results = Course.objects.filter(token=int(text))
-        return results
-    else:
-        return Course.objects.none()
+    results = Course.objects.filter(token__icontains=text)
+    return results
 
 
 def zhNameSearch(text):

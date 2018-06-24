@@ -2,15 +2,13 @@
 querysys models
 """
 from django.db import models
-from django.utils import timezone
 
 
 class Course(models.Model):
     """
     the main model of course
     """
-    token = models.DecimalField(
-        max_digits=8, decimal_places=0, primary_key=True)  # 課程代號
+    token = models.CharField(max_length=8, primary_key=True)  # 課程代號
     credit = models.SmallIntegerField()  # 學分數
     name_zh = models.CharField(max_length=50)  # 課名 中文
     name_eng = models.CharField(max_length=100)  # 課名 英文
@@ -21,16 +19,11 @@ class Course(models.Model):
         ('PART', 'Partially 群修')
     )
     category = models.CharField(choices=CATEGORY, max_length=10)  # 選修 必修 群修
-    language = models.CharField(max_length=50)  # 上課語言
-    is_core_general_Course = models.BooleanField()  # 是否為核心通識
-    change_note = models.TextField()  # 異動資訊
-    note = models.TextField()  # 備註
-
-    # FK
-    department = models.ForeignKey(
-        'Department', on_delete=models.CASCADE)  # 開課單位
+    description = models.TextField()  # 課程簡介
 
     # many to many field
+    department = models.ManyToManyField('Department')  # 開課單位
+
     teacher = models.ManyToManyField('Teacher')
     """
     it will have more than one teacher in a course.
@@ -62,19 +55,6 @@ class Teacher(models.Model):
 class Department(models.Model):
     """
     model department which establishs the course.
-    """
-    id = models.AutoField(primary_key=True)
-    name_zh = models.CharField(max_length=50)
-    college_program = models.ForeignKey(
-        'CollegeProgram', on_delete=models.CASCADE, null=True)
-
-    def __str__(self):
-        return self.name_zh
-
-
-class CollegeProgram(models.Model):
-    """
-    College or Program own department
     """
     id = models.AutoField(primary_key=True)
     name_zh = models.CharField(max_length=50)
