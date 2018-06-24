@@ -23,4 +23,5 @@ urlpatterns = [
     path('result/', views.result, name='result'),
     path('setup/', views.set_class_time, name='setup'),
     path('import/', views.import_data_from_json, name='import_datas'),
+    path('json/', views.text_json, name='autocomplete'),
 ]

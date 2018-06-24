@@ -125,9 +125,33 @@ def text_json(request):
     """
     this will genrate a json for autocomplete feather
     """
+    if request.method == 'GET':
+        query = request.GET.get('q')
+
     result = list()
-    tmp = list()
-    for c in Course.objects.all():
-        tmp.append(c.name_zh)
+
+    for c in search.tokenSearch(query):
+        tmp = {'category':'課程代號','title':c.token}
+        result.append(tmp)
     
-    return None
+    for c in search.zhNameSearch(query):
+        tmp = {'category':'課程名稱','title':c.name_zh}
+        result.append(tmp)
+
+    """
+    for c in Course.objects.all():
+        tmp = {'category':'Course Name','title':c.name_eng}
+        result.append(tmp)
+    """ 
+    
+    for t in search.TeacherSearch(query):
+        tmp = {'category':'老師','title':t.name_zh}
+        result.append(tmp)
+    
+    for d in search.DepartmentSearch(query):
+        tmp = {'category':'開課單位','title':d.name_zh}
+        result.append(tmp)
+
+    tmp = {'results':result}
+
+    return HttpResponse(json.dumps(tmp))

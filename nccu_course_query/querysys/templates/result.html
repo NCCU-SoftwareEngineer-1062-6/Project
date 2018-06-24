@@ -53,7 +53,7 @@
                     <thead>
                         <tr>
                             <th class="">課程代號</th>
-                            <th class="">課程名稱</th>
+                            <th class="two wide">課程名稱</th>
                             <th class="sorted ascending two wide">授課教師</th>
                             <th class="two wide">上課時段</th>
                             <th class="">開課單位</th>
@@ -66,9 +66,9 @@
                         {% for course in courses %}
                         <tr id="article">
                             <td>{{ course.token }}</td>
-                            <td>{{ course.name_zh }}</td>
+                            <td><h4>{{ course.name_zh }}</h4>{{ course.name_eng }}</td>
                             <td>
-                                <div class="ui vertical labels">
+                                <div class="ui vertical labels teal">
                                     {% for teacher in course.teacher.all%}
                                     <div class="ui image label" style="margin-top: 5px">
                                         <img src={% static 'img/elliot.jpg'%}> {{teacher.name_zh}}
@@ -78,9 +78,9 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="ui vertical labels">
+                                <div class="ui vertical labels blue">
                                     {% for time in course.course_time.all%}
-                                    <div class="ui label" style="margin-top: 5px">
+                                    <div class="ui label" style="margin-top: 5px" data-tooltip="{{time.start_time}} - {{time.end_time}}" data-position="right center">
                                             星期{{time.day}} {{time.section}}節
                                     </div><br>
                                     {% empty %} 

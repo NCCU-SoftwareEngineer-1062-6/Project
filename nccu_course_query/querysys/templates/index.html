@@ -13,6 +13,20 @@
         <link rel="stylesheet" type="text/css" href="{% static 'semantic/semantic.min.css'%}">
         <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
         <script src="{% static 'semantic/semantic.min.js'%}"></script>
+        <script>
+            $(document).ready(function () {
+                $('#text-search').search({
+                    apiSettings: {
+                        url: '/json?q={query}'
+                    },
+                    fields: {
+                        results : 'results',
+                        title   : 'title'
+                      },
+                    minCharacters : 2,
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -34,17 +48,14 @@
                 <h1 class="ui inverted header" style="font-size: 4em">
                     NCCU課程查詢系統
                 </h1>
-                <a class="ui huge primary button">Get Started
-                    <i class="right arrow icon"></i>
-                </a>
             </div>
         </div>
 
         <div class="ui vertical center aligned segment" style="background-color: #EEEEEE;padding-top: 50px;padding-bottom: 30%">
-            <div class="ui form huge" style="padding-right: 35%;padding-left: 35%">
+            <div id='text-search' class="ui form huge" style="padding-right: 35%;padding-left: 35%">
                 <form action="/result/" method="POST">
                     {% csrf_token %}
-                    <div class="ui right action left icon input huge fluid ">
+                    <div class="ui right action left icon input huge fluid">
                         <i class="search icon"></i>
                         <input class="prompt" type="text" placeholder="政治學" name="searchText">
                         <button class="ui button" style="font-size: 1em" type="submit">
