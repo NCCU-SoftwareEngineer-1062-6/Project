@@ -15,8 +15,15 @@ def index(request):
     """
     return the main page
     """
-    if request.method == 'POST':  # 当提交表单时
+    form = textForm()
+    return render(request, 'index.html', {'form': form})
 
+
+def result(request, courses=None):
+    """
+    return the result
+    """
+    if request.method == 'POST':  # 当提交表单时
         form = textForm(request.POST)  # form 包含提交的数据
 
         if form.is_valid():  # 如果提交的数据合法
@@ -27,17 +34,8 @@ def index(request):
             results = search.DepartmentSearch(searchText) | results
             results.distinct()
 
-            return result(request, courses=results)
+            courses = results
 
-    else:  # 当正常访问时
-        form = textForm()
-    return render(request, 'index.html', {'form': form})
-
-
-def result(request, courses=None):
-    """
-    return the result
-    """
     if courses is None:
         courses = Course.objects.all()
 
