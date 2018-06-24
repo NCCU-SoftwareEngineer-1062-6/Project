@@ -11,7 +11,10 @@
 5. 進入次資料夾`cd nccu_course_query`, run `python manage.py migrate` 建立local database
 6. run `python manage.py createsuperuser --username=joe --email=joe@example.com` 建立管理員帳號
 7. run `python manage.py runserver` 啟動測試伺服器
-10. I have configed all recommend VScode extension，just install all recommend extension
+8. 進入測試伺服器後，請先確認admin內，course的資料是否乾淨(因token只能唯一，匯入時須確定不會重複)
+9. 回到首頁，點選debug內的configure classtime
+10. 點選debug內的input data(執行過程會需要一點時間，請耐心等待)
+11. I have configed all recommend VScode extension，just install all recommend extension
 
 ## 環境說明
 1. 已經設定好gitignore
