@@ -12,8 +12,8 @@
 6. run `python manage.py createsuperuser --username=joe --email=joe@example.com` 建立管理員帳號
 7. run `python manage.py runserver` 啟動測試伺服器
 8. 進入測試伺服器後，請先確認`admin`內，`course的資料是否乾淨(因token只能唯一，匯入時須確定不會重複)`
-9. 回到首頁，點選`debug`內的`configure classtime`
-10. 點選`debug`內的`input data(執行過程會需要一點時間，請耐心等待)`
+9. 將網址輸入http://127.0.0.1:8000/setup
+10. 將網址輸入http://127.0.0.1:8000/import (執行過程會需要一點時間，請耐心等待)`
 11. I have configed all recommend VScode extension，just install all recommend extension
 
 ## 環境說明
